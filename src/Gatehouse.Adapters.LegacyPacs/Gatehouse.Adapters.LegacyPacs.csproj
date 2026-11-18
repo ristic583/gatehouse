@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql" />
+    <ProjectReference Include="..\Gatehouse.Connector.Contracts\Gatehouse.Connector.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

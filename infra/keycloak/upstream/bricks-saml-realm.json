@@ -1,0 +1,152 @@
+{
+  "realm": "bricks-saml",
+  "enabled": true,
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "sslRequired": "none",
+  "accessTokenLifespan": 300,
+  "displayName": "Bricks GmbH (upstream SAML IdP)",
+  "clients": [
+    {
+      "clientId": "http://localhost:8080/realms/gatehouse",
+      "name": "Gatehouse broker (SAML SP)",
+      "enabled": true,
+      "protocol": "saml",
+      "frontchannelLogout": true,
+      "redirectUris": [
+        "http://localhost:8080/realms/gatehouse/broker/bricks-saml/endpoint"
+      ],
+      "attributes": {
+        "saml_name_id_format": "email",
+        "saml.force.name.id.format": "true",
+        "saml.authnstatement": "true",
+        "saml.server.signature": "true",
+        "saml.client.signature": "false",
+        "saml.assertion.signature": "false",
+        "saml.encrypt": "false",
+        "saml.force.post.binding": "true",
+        "saml_assertion_consumer_url_post": "http://localhost:8080/realms/gatehouse/broker/bricks-saml/endpoint",
+        "saml_single_logout_service_url_post": "http://localhost:8080/realms/gatehouse/broker/bricks-saml/endpoint",
+        "saml.signature.algorithm": "RSA_SHA256"
+      },
+      "protocolMappers": [
+        {
+          "name": "email",
+          "protocol": "saml",
+          "protocolMapper": "saml-user-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "email",
+            "attribute.name": "email",
+            "attribute.nameformat": "Basic",
+            "friendly.name": "email"
+          }
+        },
+        {
+          "name": "firstName",
+          "protocol": "saml",
+          "protocolMapper": "saml-user-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "firstName",
+            "attribute.name": "firstName",
+            "attribute.nameformat": "Basic",
+            "friendly.name": "firstName"
+          }
+        },
+        {
+          "name": "lastName",
+          "protocol": "saml",
+          "protocolMapper": "saml-user-property-mapper",
+          "consentRequired": false,
+          "config": {
+            "user.attribute": "lastName",
+            "attribute.name": "lastName",
+            "attribute.nameformat": "Basic",
+            "friendly.name": "lastName"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "lena.schmidt",
+      "email": "lena.schmidt@bricks.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Lena",
+      "lastName": "Schmidt",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "max.weber",
+      "email": "max.weber@bricks.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Max",
+      "lastName": "Weber",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "clara.fischer",
+      "email": "clara.fischer@bricks.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Clara",
+      "lastName": "Fischer",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "jan.koch",
+      "email": "jan.koch@bricks.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Jan",
+      "lastName": "Koch",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "paul.wagner",
+      "email": "paul.wagner@bricks.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Paul",
+      "lastName": "Wagner",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "mia.becker",
+      "email": "mia.becker@bricks.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Mia",
+      "lastName": "Becker",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "tom.richter",
+      "email": "tom.richter@bricks.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Tom",
+      "lastName": "Richter",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    }
+  ]
+}

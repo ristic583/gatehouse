@@ -1,0 +1,1 @@
+# conventions.md §1: "{Api feature type}: {DbContext|TenantDbContext|CatalogDbContext|ITenantDb}". Only shrinks.

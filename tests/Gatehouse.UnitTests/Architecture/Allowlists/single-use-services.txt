@@ -1,0 +1,1 @@
+# conventions.md §2: *Service types used by fewer than two *Handler/*Runner constructors (full type names). Only shrinks.

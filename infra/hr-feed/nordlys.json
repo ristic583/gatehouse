@@ -1,0 +1,434 @@
+[
+  {
+    "email": "erik.moller@nordlys.test",
+    "givenName": "Erik",
+    "familyName": "Møller",
+    "managerEmail": null,
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "mikkel.holm@nordlys.test",
+    "givenName": "Mikkel",
+    "familyName": "Holm",
+    "managerEmail": "erik.moller@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "sofie.berg@nordlys.test",
+    "givenName": "Sofie",
+    "familyName": "Berg",
+    "managerEmail": "erik.moller@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "jonas.nielsen@nordlys.test",
+    "givenName": "Jonas",
+    "familyName": "Nielsen",
+    "managerEmail": "erik.moller@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "freja.dahl@nordlys.test",
+    "givenName": "Freja",
+    "familyName": "Dahl",
+    "managerEmail": "erik.moller@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "anna.larsen@nordlys.test",
+    "givenName": "Anna",
+    "familyName": "Larsen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-01@nordlys.test",
+    "givenName": "Lars",
+    "familyName": "Jensen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-02@nordlys.test",
+    "givenName": "Mette",
+    "familyName": "Jensen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-03@nordlys.test",
+    "givenName": "Henrik",
+    "familyName": "Jensen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-04@nordlys.test",
+    "givenName": "Camilla",
+    "familyName": "Jensen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-05@nordlys.test",
+    "givenName": "Rasmus",
+    "familyName": "Jensen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-06@nordlys.test",
+    "givenName": "Ida",
+    "familyName": "Jensen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-07@nordlys.test",
+    "givenName": "Soren",
+    "familyName": "Jensen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-08@nordlys.test",
+    "givenName": "Line",
+    "familyName": "Jensen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-09@nordlys.test",
+    "givenName": "Mads",
+    "familyName": "Jensen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-10@nordlys.test",
+    "givenName": "Emma",
+    "familyName": "Jensen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-11@nordlys.test",
+    "givenName": "Lars",
+    "familyName": "Hansen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-12@nordlys.test",
+    "givenName": "Mette",
+    "familyName": "Hansen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-13@nordlys.test",
+    "givenName": "Henrik",
+    "familyName": "Hansen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-14@nordlys.test",
+    "givenName": "Camilla",
+    "familyName": "Hansen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-15@nordlys.test",
+    "givenName": "Rasmus",
+    "familyName": "Hansen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-16@nordlys.test",
+    "givenName": "Ida",
+    "familyName": "Hansen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-17@nordlys.test",
+    "givenName": "Soren",
+    "familyName": "Hansen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-18@nordlys.test",
+    "givenName": "Line",
+    "familyName": "Hansen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-19@nordlys.test",
+    "givenName": "Mads",
+    "familyName": "Hansen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-20@nordlys.test",
+    "givenName": "Emma",
+    "familyName": "Hansen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-21@nordlys.test",
+    "givenName": "Lars",
+    "familyName": "Pedersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-22@nordlys.test",
+    "givenName": "Mette",
+    "familyName": "Pedersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-23@nordlys.test",
+    "givenName": "Henrik",
+    "familyName": "Pedersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-24@nordlys.test",
+    "givenName": "Camilla",
+    "familyName": "Pedersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-25@nordlys.test",
+    "givenName": "Rasmus",
+    "familyName": "Pedersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-26@nordlys.test",
+    "givenName": "Ida",
+    "familyName": "Pedersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-27@nordlys.test",
+    "givenName": "Soren",
+    "familyName": "Pedersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-28@nordlys.test",
+    "givenName": "Line",
+    "familyName": "Pedersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-29@nordlys.test",
+    "givenName": "Mads",
+    "familyName": "Pedersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-30@nordlys.test",
+    "givenName": "Emma",
+    "familyName": "Pedersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-31@nordlys.test",
+    "givenName": "Lars",
+    "familyName": "Andersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-32@nordlys.test",
+    "givenName": "Mette",
+    "familyName": "Andersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-33@nordlys.test",
+    "givenName": "Henrik",
+    "familyName": "Andersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-34@nordlys.test",
+    "givenName": "Camilla",
+    "familyName": "Andersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-35@nordlys.test",
+    "givenName": "Rasmus",
+    "familyName": "Andersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-36@nordlys.test",
+    "givenName": "Ida",
+    "familyName": "Andersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-37@nordlys.test",
+    "givenName": "Soren",
+    "familyName": "Andersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-38@nordlys.test",
+    "givenName": "Line",
+    "familyName": "Andersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-39@nordlys.test",
+    "givenName": "Mads",
+    "familyName": "Andersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "person-40@nordlys.test",
+    "givenName": "Emma",
+    "familyName": "Andersen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2020-01-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "ida.jensen@nordlys.test",
+    "givenName": "Ida",
+    "familyName": "Jensen",
+    "managerEmail": "mikkel.holm@nordlys.test",
+    "employmentStart": "2026-11-01T00:00:00+00:00",
+    "employmentEnd": null,
+    "timeZoneId": "Europe/Copenhagen"
+  },
+  {
+    "email": "lars.petersen@nordlys.test",
+    "givenName": "Lars",
+    "familyName": "Petersen",
+    "managerEmail": "sofie.berg@nordlys.test",
+    "employmentStart": "2026-11-01T00:00:00+00:00",
+    "employmentEnd": "2030-01-01T00:00:00+00:00",
+    "timeZoneId": "Europe/Copenhagen"
+  }
+]

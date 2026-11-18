@@ -1,0 +1,19 @@
+# conventions.md §3: *Command types with input but no registered validator (full type names). Only shrinks.
+Gatehouse.Application.Access.Approvals.DecideStepCommand                              # comment rule depends on approve/reject (Entitlement)
+Gatehouse.Application.Access.Notifications.NotifyApproversCommand                     # internal (outbox consumer), no HTTP input
+Gatehouse.Application.Connectors.PollCommandsCommand                                  # internal (gateway builds it), no HTTP input
+Gatehouse.Application.Connectors.RecordHeartbeatCommand                               # internal (gateway builds it), no HTTP input
+Gatehouse.Application.Credentials.Photos.UploadMyPhoto.UploadMyPhotoCommand           # raw body; size/type need the bytes (Photo)
+Gatehouse.Application.Fulfillment.MonitorRevocations.DetectUnconfirmedRevocationsCommand # internal (worker), no HTTP input
+Gatehouse.Application.Fulfillment.PacsAdmin.RegisterConnector.RegisterConnectorCommand # gateway URL comes from configuration
+Gatehouse.Application.LiveBuilding.ConnectorHealth.RecordConnectorHeartbeatCommand    # internal (consumer), no HTTP input
+Gatehouse.Application.LiveBuilding.ConnectorHealth.SweepOfflineConnectorsCommand      # internal (worker), no HTTP input
+Gatehouse.Application.LiveBuilding.IngestDoorEvents.IngestDoorEventsCommand           # internal (consumer), no HTTP input
+Gatehouse.Application.People.Admin.ImportPeople.ImportPeopleCommand                   # raw CSV body; per-row checks need parsing (handler)
+Gatehouse.Application.People.Sponsorship.ExtendSponsorshipCommand                     # max window is a business rule (Person)
+Gatehouse.Application.Sites.SetAreaOwners.SetAreaOwnersCommand                        # owners must be active employees (database)
+Gatehouse.Application.Sites.UploadFloorBackground.UploadFloorBackgroundCommand        # raw body; size/type need the bytes (handler)
+Gatehouse.Application.Tasks.FulfillmentFollowUps.OpenFulfillmentFailedTaskCommand     # internal (consumer), no HTTP input
+Gatehouse.Application.Tasks.FulfillmentFollowUps.ResolveFulfillmentTasksCommand       # internal (consumer), no HTTP input
+Gatehouse.Application.Tenancy.Onboarding.SkipOnboardingStep.SkipOnboardingStepCommand # route value; unknown step is a 409 today
+Gatehouse.Application.Theming.SaveTheme.SaveThemeCommand                              # colour, radius and term rules live in TenantTheme

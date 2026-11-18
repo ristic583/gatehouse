@@ -1,0 +1,9 @@
+# Generated files only; everything else is formatted.
+.next/
+.design-preview/
+out/
+build/
+coverage/
+node_modules/
+next-env.d.ts
+package-lock.json

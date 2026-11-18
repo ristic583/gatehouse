@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Gatehouse.Agent/Gatehouse.Agent.csproj" />
+    <Project Path="src/Gatehouse.Api/Gatehouse.Api.csproj" />
+    <Project Path="src/Gatehouse.AppHost/Gatehouse.AppHost.csproj" />
+    <Project Path="src/Gatehouse.Application/Gatehouse.Application.csproj" />
+    <Project Path="src/Gatehouse.Cli/Gatehouse.Cli.csproj" />
+    <Project Path="src/Gatehouse.ConnectorGateway/Gatehouse.ConnectorGateway.csproj" />
+    <Project Path="src/Gatehouse.Adapters.LegacyPacs/Gatehouse.Adapters.LegacyPacs.csproj" />
+    <Project Path="src/Gatehouse.Adapters.CloudPacs/Gatehouse.Adapters.CloudPacs.csproj" />
+    <Project Path="src/Gatehouse.Connector.Contracts/Gatehouse.Connector.Contracts.csproj" />
+    <Project Path="src/Gatehouse.Domain/Gatehouse.Domain.csproj" />
+    <Project Path="src/Gatehouse.Infrastructure/Gatehouse.Infrastructure.csproj" />
+    <Project Path="src/Gatehouse.ServiceDefaults/Gatehouse.ServiceDefaults.csproj" />
+    <Project Path="src/Gatehouse.Workers/Gatehouse.Workers.csproj" />
+  </Folder>
+  <Folder Name="/simulators/">
+    <Project Path="simulators/Building.Simulator/Building.Simulator.csproj" />
+    <Project Path="simulators/CloudPacs.Simulator/CloudPacs.Simulator.csproj" />
+    <Project Path="simulators/LegacyPacs.Simulator/LegacyPacs.Simulator.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Gatehouse.ContractTests/Gatehouse.ContractTests.csproj" />
+    <Project Path="tests/Gatehouse.IntegrationTests/Gatehouse.IntegrationTests.csproj" />
+    <Project Path="tests/Gatehouse.UnitTests/Gatehouse.UnitTests.csproj" />
+  </Folder>
+</Solution>

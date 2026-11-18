@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gatehouse.Domain\Gatehouse.Domain.csproj" />    <ProjectReference Include="..\Gatehouse.Connector.Contracts\Gatehouse.Connector.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

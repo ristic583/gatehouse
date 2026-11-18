@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+    <OutputType>Exe</OutputType>
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Aspire.Hosting.Testing" />
+    <PackageReference Include="Testcontainers.PostgreSql" />
+    <PackageReference Include="Testcontainers.Redis" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+    <PackageReference Include="Testcontainers.Keycloak" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Gatehouse.Api\Gatehouse.Api.csproj" Aliases="GatehouseApi" />
+    <ProjectReference Include="..\..\src\Gatehouse.ConnectorGateway\Gatehouse.ConnectorGateway.csproj" Aliases="GatehouseGateway" />
+    <ProjectReference Include="..\..\src\Gatehouse.Agent\Gatehouse.Agent.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Workers\Gatehouse.Workers.csproj" Aliases="GatehouseWorkers" />
+    <ProjectReference Include="..\..\src\Gatehouse.Adapters.LegacyPacs\Gatehouse.Adapters.LegacyPacs.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Adapters.CloudPacs\Gatehouse.Adapters.CloudPacs.csproj" />
+    <ProjectReference Include="..\..\simulators\LegacyPacs.Simulator\LegacyPacs.Simulator.csproj" />
+    <ProjectReference Include="..\..\simulators\Building.Simulator\Building.Simulator.csproj" />
+    <ProjectReference Include="..\..\simulators\CloudPacs.Simulator\CloudPacs.Simulator.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Infrastructure\Gatehouse.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Cli\Gatehouse.Cli.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.AppHost\Gatehouse.AppHost.csproj" />
+  </ItemGroup>
+
+</Project>

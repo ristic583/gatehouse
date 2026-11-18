@@ -1,0 +1,28 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.6.5">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AspireUseCliBundle>true</AspireUseCliBundle>
+    <UserSecretsId>f4ad3ba5-33f8-457e-800a-d65f49923f54</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.Redis" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" />
+    <PackageReference Include="Aspire.Hosting.Keycloak" />
+    <PackageReference Include="Aspire.Hosting.JavaScript" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gatehouse.Api\Gatehouse.Api.csproj" />
+    <ProjectReference Include="..\Gatehouse.Workers\Gatehouse.Workers.csproj" />
+    <ProjectReference Include="..\Gatehouse.Cli\Gatehouse.Cli.csproj" />
+    <ProjectReference Include="..\Gatehouse.ConnectorGateway\Gatehouse.ConnectorGateway.csproj" />
+    <ProjectReference Include="..\Gatehouse.Agent\Gatehouse.Agent.csproj" />
+    <ProjectReference Include="..\..\simulators\LegacyPacs.Simulator\LegacyPacs.Simulator.csproj" />
+    <ProjectReference Include="..\..\simulators\Building.Simulator\Building.Simulator.csproj" />
+    <ProjectReference Include="..\..\simulators\CloudPacs.Simulator\CloudPacs.Simulator.csproj" />
+  </ItemGroup>
+
+</Project>

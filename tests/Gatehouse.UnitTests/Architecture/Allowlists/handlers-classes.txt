@@ -1,0 +1,1 @@
+# conventions.md §2: multi-action *Handlers classes in Gatehouse.Application (full type names). Only shrinks.

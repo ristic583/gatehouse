@@ -1,0 +1,88 @@
+name: CI
+
+# Build, format, unit, contract, integration, web and dependency scan on GitHub-hosted runners.
+# The full-system suites (AppHost tests + Playwright e2e) need the whole stack and run locally; see tests/e2e/README.md.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: "1"
+  DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+
+jobs:
+  dotnet:
+    name: .NET build, format, unit, contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet tool restore
+      - run: dotnet build Gatehouse.slnx -nologo -v q -clp:ErrorsOnly
+      - run: dotnet format Gatehouse.slnx --verify-no-changes
+      - run: dotnet test tests/Gatehouse.UnitTests --nologo -v q --logger "console;verbosity=minimal"
+      - run: dotnet test tests/Gatehouse.ContractTests --nologo -v q --logger "console;verbosity=minimal"
+
+  integration:
+    name: Integration (Testcontainers)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet test tests/Gatehouse.IntegrationTests --nologo -v q --logger "console;verbosity=minimal" --filter "Category!=AppHost" --blame-hang-timeout 5m
+
+  web:
+    name: Web lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src/web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: src/web/package-lock.json
+      - run: npm ci
+      - run: npm run --silent lint
+      - run: npm run --silent typecheck
+      - run: npm test -- --run
+      - run: npm run --silent build
+
+  dependency-scan:
+    name: Dependency scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: NuGet vulnerabilities
+        run: |
+          dotnet restore Gatehouse.slnx
+          dotnet list Gatehouse.slnx package --vulnerable --include-transitive | tee vulnerable.txt
+          if grep -q "has the following vulnerable packages" vulnerable.txt; then echo "Vulnerable NuGet packages found"; exit 1; fi
+      - name: npm audit (web)
+        working-directory: src/web
+        # What ships: the runtime dependencies. Build and test tooling (eslint, vitest, the shadcn CLI) is not deployed.
+        run: npm ci && npm audit --omit=dev --audit-level=high
+      - name: npm audit (e2e)
+        working-directory: tests/e2e
+        run: npm ci && npm audit --audit-level=high

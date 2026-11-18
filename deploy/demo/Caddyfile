@@ -1,0 +1,38 @@
+# Single HTTP entry of the demo stack. Put TLS in front of it (a reverse proxy or CDN that sets X-Forwarded-Proto), or set
+# FORWARDED_PROTO=http for a plain local run.
+{
+	admin off
+}
+
+:80 {
+	header {
+		?Strict-Transport-Security "max-age=31536000"
+		?X-Content-Type-Options "nosniff"
+		?Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+
+	# Keycloak admin consoles, admin APIs and master realms stay internal; the provisioner uses them on the Docker network.
+	@kcadmin path /kc/admin /kc/admin/* /kc/realms/master /kc/realms/master/* /idp/admin /idp/admin/* /idp/realms/master /idp/realms/master/*
+	handle @kcadmin {
+		respond 404
+	}
+
+	handle /kc/* {
+		reverse_proxy keycloak:8080 {
+			header_up X-Forwarded-Proto {$FORWARDED_PROTO}
+		}
+	}
+
+	handle /idp/* {
+		reverse_proxy upstream-idp:8080 {
+			header_up X-Forwarded-Proto {$FORWARDED_PROTO}
+		}
+	}
+
+	handle {
+		reverse_proxy web:3000 {
+			header_up X-Forwarded-Proto {$FORWARDED_PROTO}
+		}
+	}
+}

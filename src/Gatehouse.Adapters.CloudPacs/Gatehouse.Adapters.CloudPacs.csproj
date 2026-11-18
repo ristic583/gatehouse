@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <ProjectReference Include="..\Gatehouse.Connector.Contracts\Gatehouse.Connector.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

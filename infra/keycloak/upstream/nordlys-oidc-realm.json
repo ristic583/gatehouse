@@ -1,0 +1,110 @@
+{
+  "realm": "nordlys-oidc",
+  "enabled": true,
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "sslRequired": "none",
+  "accessTokenLifespan": 300,
+  "displayName": "Nordlys A/S (upstream OIDC IdP)",
+  "clients": [
+    {
+      "clientId": "gatehouse-broker",
+      "name": "Gatehouse broker",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "${GH_BROKER_CLIENT_SECRET}",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "redirectUris": [
+        "http://localhost:8080/realms/gatehouse/broker/nordlys-oidc/endpoint"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:8080/realms/gatehouse/*"
+      }
+    }
+  ],
+  "users": [
+    {
+      "username": "anna.larsen",
+      "email": "anna.larsen@nordlys.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Anna",
+      "lastName": "Larsen",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "mikkel.holm",
+      "email": "mikkel.holm@nordlys.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Mikkel",
+      "lastName": "Holm",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "sofie.berg",
+      "email": "sofie.berg@nordlys.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Sofie",
+      "lastName": "Berg",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "erik.moller",
+      "email": "erik.moller@nordlys.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Erik",
+      "lastName": "Møller",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "jonas.nielsen",
+      "email": "jonas.nielsen@nordlys.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Jonas",
+      "lastName": "Nielsen",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "freja.dahl",
+      "email": "freja.dahl@nordlys.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Freja",
+      "lastName": "Dahl",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    },
+    {
+      "username": "oliver.kruse",
+      "email": "oliver.kruse@nordlys.test",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Oliver",
+      "lastName": "Kruse",
+      "credentials": [
+        { "type": "password", "value": "${GH_DEMO_USER_PASSWORD}", "temporary": false }
+      ]
+    }
+  ]
+}

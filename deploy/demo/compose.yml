@@ -1,0 +1,320 @@
+# Gatehouse public demo: the whole system with two demo tenants, their identity providers, simulated PACS and a simulated
+# building, behind one HTTP entry (Caddy on $HTTP_PORT). Visitors sign in with one click as a demo persona; nobody needs a
+# password. Start with deploy/demo/setup.sh, reset the data with deploy/demo/reset.sh. Details: deploy/demo/README.md.
+name: gatehouse-demo
+
+x-dotnet-env: &dotnet-env
+  ConnectionStrings__postgres: Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD}
+  ConnectionStrings__catalog: Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=catalog
+  ConnectionStrings__redis: redis:6379,password=${REDIS_PASSWORD}
+  ConnectionStrings__rabbitmq: amqp://gatehouse:${RABBITMQ_PASSWORD}@rabbitmq:5672
+  Gatehouse__Secrets__MasterKey: ${SECRETS_MASTER_KEY}
+  Keycloak__AdminUrl: http://keycloak:8080/kc
+  Keycloak__PublicUrl: ${PUBLIC_URL}/kc
+  Keycloak__ProvisionerClientId: gatehouse-provisioner
+  Keycloak__ProvisionerClientSecret: ${PROVISIONER_CLIENT_SECRET}
+  Keycloak__InviteRedirectUri: ${PUBLIC_URL}/auth/callback
+  Storage__Endpoint: http://object-store:9000
+  Storage__AccessKey: gatehouse
+  Storage__SecretKey: ${OBJECT_STORE_PASSWORD}
+  Web__PublicUrl: ${PUBLIC_URL}
+  HrSync__FeedDirectory: /hr-feed
+
+x-image: &build-dotnet
+  context: ../..
+  dockerfile: deploy/demo/Dockerfile
+
+services:
+  proxy:
+    image: caddy:2.10.2-alpine
+    restart: unless-stopped
+    ports: ["${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-8088}:80"]
+    environment:
+      FORWARDED_PROTO: ${FORWARDED_PROTO:-https}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on: [web, keycloak, upstream-idp]
+    mem_limit: 64m
+
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres-init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      retries: 20
+    mem_limit: 512m
+
+  redis:
+    image: redis:8-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
+    mem_limit: 96m
+
+  rabbitmq:
+    image: rabbitmq:4-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: gatehouse
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    volumes: [rabbitmq-data:/var/lib/rabbitmq]
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      retries: 20
+    mem_limit: 256m
+
+  object-store:
+    image: rustfs/rustfs:1.0.5
+    restart: unless-stopped
+    environment:
+      RUSTFS_ACCESS_KEY: gatehouse
+      RUSTFS_SECRET_KEY: ${OBJECT_STORE_PASSWORD}
+      RUSTFS_CONSOLE_ENABLE: "false"
+    volumes: [object-store-data:/data]
+    mem_limit: 192m
+
+  # Catches Keycloak and approver mail; never reachable from outside.
+  mailpit:
+    image: axllent/mailpit:v1.27.0
+    restart: unless-stopped
+    mem_limit: 64m
+
+  # The demo companies' own identity providers: Nordlys (OIDC) and Bricks (SAML), served at $PUBLIC_URL/idp.
+  upstream-idp:
+    image: quay.io/keycloak/keycloak:26.6
+    restart: unless-stopped
+    command: ["start", "--import-realm"]
+    environment: &keycloak-env
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/upstream_idp
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_HTTP_ENABLED: "true"
+      KC_HTTP_RELATIVE_PATH: /idp
+      KC_HOSTNAME: ${PUBLIC_URL}/idp
+      KC_HOSTNAME_BACKCHANNEL_DYNAMIC: "true"
+      KC_PROXY_HEADERS: xforwarded
+      KC_HEALTH_ENABLED: "true"
+      KC_BOOTSTRAP_ADMIN_USERNAME: kcadmin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      JAVA_OPTS_KC_HEAP: -XX:InitialRAMPercentage=25 -XX:MaxRAMPercentage=65
+      GH_DEMO_USER_PASSWORD: ${DEMO_USER_PASSWORD}
+      GH_BROKER_CLIENT_SECRET: ${BROKER_CLIENT_SECRET}
+      GH_ACME_BROKER_CLIENT_SECRET: ${ACME_BROKER_CLIENT_SECRET}
+    volumes:
+      - ./data/upstream:/opt/keycloak/data/import:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /idp/health/ready HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q '200 OK' <&3"]
+      interval: 10s
+      start_period: 120s
+      retries: 30
+    mem_limit: 640m
+
+  # Gatehouse's own Keycloak (realms gatehouse and gatehouse-platform), served at $PUBLIC_URL/kc.
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.6
+    restart: unless-stopped
+    command: ["start", "--import-realm"]
+    environment:
+      <<: *keycloak-env
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_HTTP_RELATIVE_PATH: /kc
+      KC_HOSTNAME: ${PUBLIC_URL}/kc
+      GH_WEB_CLIENT_SECRET: ${WEB_CLIENT_SECRET}
+      GH_PROVISIONER_CLIENT_SECRET: ${PROVISIONER_CLIENT_SECRET}
+      GH_PLATFORM_WEB_CLIENT_SECRET: ${PLATFORM_WEB_CLIENT_SECRET}
+      GH_PLATFORM_OPERATOR_PASSWORD: ${PLATFORM_OPERATOR_PASSWORD}
+      GH_PLATFORM_OPERATOR_OTP_SECRET: ${PLATFORM_OPERATOR_OTP_SECRET}
+      UPSTREAM_IDP_INTERNAL_URL: http://upstream-idp:8080/idp
+    volumes:
+      - ./data/realms:/opt/keycloak/data/import:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+      upstream-idp: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/9000 && printf 'GET /kc/health/ready HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q '200 OK' <&3"]
+      interval: 10s
+      start_period: 120s
+      retries: 30
+    mem_limit: 768m
+
+  # Migrates, creates the demo tenants nordlys and bricks with their people, sites, PACS and connectors, and seeds them.
+  migrator:
+    image: gatehouse-demo-cli:local
+    build: { <<: *build-dotnet, target: cli }
+    command: ["bootstrap"]
+    environment:
+      <<: *dotnet-env
+      Platform__BootstrapOperatorEmail: operator@platform.test
+      Connector__DemoToken: ${DEMO_CONNECTOR_TOKEN}
+      Connector__DemoTokenAarhus: ${DEMO_CONNECTOR_TOKEN_AARHUS}
+    volumes: ["../../infra/hr-feed:/hr-feed:ro"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      keycloak: { condition: service_healthy }
+    restart: "no"
+    mem_limit: 320m
+
+  api:
+    image: gatehouse-demo-api:local
+    build: { <<: *build-dotnet, target: api }
+    restart: unless-stopped
+    environment:
+      <<: *dotnet-env
+      ASPNETCORE_URLS: http://+:8080
+      Gatehouse__Auth__Authority: ${PUBLIC_URL}/kc/realms/gatehouse
+      Gatehouse__Auth__MetadataAddress: http://keycloak:8080/kc/realms/gatehouse/.well-known/openid-configuration
+      Gatehouse__Auth__Audience: gatehouse-api
+      Platform__Authority: ${PUBLIC_URL}/kc/realms/gatehouse-platform
+      Platform__MetadataAddress: http://keycloak:8080/kc/realms/gatehouse-platform/.well-known/openid-configuration
+      Platform__Audience: gatehouse-platform-api
+      Gateway__PublicUrl: https://gateway:5443
+      Connector__DemoToken: ${DEMO_CONNECTOR_TOKEN}
+    volumes: ["../../infra/hr-feed:/hr-feed:ro"]
+    depends_on:
+      migrator: { condition: service_completed_successfully }
+      keycloak: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+      redis: { condition: service_started }
+      object-store: { condition: service_started }
+    mem_limit: 384m
+
+  workers:
+    image: gatehouse-demo-workers:local
+    build: { <<: *build-dotnet, target: workers }
+    restart: unless-stopped
+    environment:
+      <<: *dotnet-env
+      Notifications__SmtpHost: mailpit
+      Notifications__SmtpPort: "1025"
+      Notifications__From: noreply@gatehouse.test
+      Notifications__PublicUrl: ${PUBLIC_URL}
+    volumes: ["../../infra/hr-feed:/hr-feed:ro"]
+    depends_on:
+      migrator: { condition: service_completed_successfully }
+      rabbitmq: { condition: service_healthy }
+      redis: { condition: service_started }
+    mem_limit: 384m
+
+  gateway:
+    image: gatehouse-demo-gateway:local
+    build: { <<: *build-dotnet, target: gateway }
+    restart: unless-stopped
+    environment:
+      <<: *dotnet-env
+      ASPNETCORE_URLS: https://+:5443
+      Kestrel__Certificates__Default__Path: /certs/gateway.pfx
+    volumes:
+      - ./data/gateway:/certs:ro
+    depends_on:
+      migrator: { condition: service_completed_successfully }
+      api: { condition: service_started }
+    mem_limit: 256m
+
+  web:
+    image: gatehouse-demo-web:local
+    build: { context: ../.., dockerfile: deploy/demo/Dockerfile.web }
+    restart: unless-stopped
+    environment:
+      services__api__http__0: http://api:8080
+      ConnectionStrings__redis: redis:6379,password=${REDIS_PASSWORD}
+      GATEHOUSE_PUBLIC_URL: ${PUBLIC_URL}
+      GATEHOUSE_OIDC_ISSUER: ${PUBLIC_URL}/kc/realms/gatehouse
+      GATEHOUSE_OIDC_DISCOVERY_URL: http://keycloak:8080/kc/realms/gatehouse/.well-known/openid-configuration
+      GATEHOUSE_OIDC_CLIENT_ID: gatehouse-web
+      GATEHOUSE_OIDC_CLIENT_SECRET: ${WEB_CLIENT_SECRET}
+      GATEHOUSE_PLATFORM_OIDC_ISSUER: ${PUBLIC_URL}/kc/realms/gatehouse-platform
+      GATEHOUSE_PLATFORM_OIDC_DISCOVERY_URL: http://keycloak:8080/kc/realms/gatehouse-platform/.well-known/openid-configuration
+      GATEHOUSE_PLATFORM_OIDC_CLIENT_ID: gatehouse-platform-web
+      GATEHOUSE_PLATFORM_OIDC_CLIENT_SECRET: ${PLATFORM_WEB_CLIENT_SECRET}
+      # One-click persona sign-in (src/web/lib/auth/demo-sign-in.ts). The BFF walks the sign-in on the internal network.
+      GATEHOUSE_DEMO_SIGN_IN: "true"
+      GATEHOUSE_DEMO_PASSWORD: ${DEMO_USER_PASSWORD}
+      GATEHOUSE_DEMO_URL_MAP: ${PUBLIC_URL}/kc=http://keycloak:8080/kc,${PUBLIC_URL}/idp=http://upstream-idp:8080/idp
+    depends_on:
+      api: { condition: service_started }
+      keycloak: { condition: service_healthy }
+    mem_limit: 320m
+
+  # ---- The demo customer sites: two PACS, their connector agents and a building that generates door traffic ----
+
+  legacypacs-sim:
+    image: gatehouse-demo-legacypacs-sim:local
+    build: { <<: *build-dotnet, target: legacypacs-sim }
+    restart: unless-stopped
+    environment:
+      ConnectionStrings__legacypacs: Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=legacypacs
+    depends_on:
+      postgres: { condition: service_healthy }
+    mem_limit: 160m
+
+  cloudpacs-sim:
+    image: gatehouse-demo-cloudpacs-sim:local
+    build: { <<: *build-dotnet, target: cloudpacs-sim }
+    restart: unless-stopped
+    environment:
+      CloudPacs__ApiKey: ${CLOUDPACS_API_KEY}
+      CloudPacs__ReadDelayMs: "300"
+      CloudPacs__ErrorRate: "0.02"
+    mem_limit: 160m
+
+  building-sim:
+    image: gatehouse-demo-building-sim:local
+    build: { <<: *build-dotnet, target: building-sim }
+    restart: unless-stopped
+    environment:
+      Simulator__LegacyPacsUrl: http://legacypacs-sim:5180
+      Simulator__CloudPacsUrl: http://cloudpacs-sim:5185
+    depends_on: [legacypacs-sim, cloudpacs-sim]
+    mem_limit: 160m
+
+  agent-hq:
+    image: gatehouse-demo-agent:local
+    build: { <<: *build-dotnet, target: agent }
+    restart: unless-stopped
+    environment:
+      Agent__GatewayUrl: https://gateway:5443
+      Agent__GatewayCertificatePath: /certs/cert.pem
+      Agent__EnrollmentToken: ${DEMO_CONNECTOR_TOKEN}
+      Agent__AgentVersion: demo
+      Agent__Vendor: LegacyPacs
+      Agent__LegacyPacsConnectionString: Host=postgres;Port=5432;Username=postgres;Password=${POSTGRES_PASSWORD};Database=legacypacs
+    volumes:
+      - ./data/gateway:/certs:ro
+      - agent-hq-data:/data
+    depends_on: [gateway, legacypacs-sim]
+    mem_limit: 160m
+
+  agent-aarhus:
+    image: gatehouse-demo-agent:local
+    restart: unless-stopped
+    environment:
+      Agent__GatewayUrl: https://gateway:5443
+      Agent__GatewayCertificatePath: /certs/cert.pem
+      Agent__EnrollmentToken: ${DEMO_CONNECTOR_TOKEN_AARHUS}
+      Agent__AgentVersion: demo
+      Agent__Vendor: CloudPacs
+      Agent__CloudPacsUrl: http://cloudpacs-sim:5185
+      Agent__CloudPacsApiKey: ${CLOUDPACS_API_KEY}
+      Agent__WebhookListenUrl: http://0.0.0.0:5186
+      Agent__WebhookPublicUrl: http://agent-aarhus:5186/webhooks/cloudpacs
+    volumes:
+      - ./data/gateway:/certs:ro
+      - agent-aarhus-data:/data
+    depends_on: [gateway, cloudpacs-sim, agent-hq]
+    mem_limit: 160m
+
+volumes:
+  postgres-data:
+  rabbitmq-data:
+  object-store-data:
+  agent-hq-data:
+  agent-aarhus-data:

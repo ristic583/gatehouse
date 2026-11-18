@@ -1,0 +1,2519 @@
+/* Gatehouse / Spatial Command. Architectural scene and security-console visual layer. */
+:root {
+  --gh-paper: #0b1017;
+  --gh-line: #25303a;
+  --gh-ink: #d9e2e9;
+  --gh-sage: #d4e78d;
+  --gh-signal: #d4e78d;
+  --gh-muted: #83929f;
+}
+body {
+  background: #0b1017;
+  color: #d9e2e9;
+  --background: #0b1017;
+  --foreground: #d9e2e9;
+  --card: #121a23;
+  --card-foreground: #d9e2e9;
+  --popover: #151f29;
+  --popover-foreground: #d9e2e9;
+  --muted: #1b2732;
+  --muted-foreground: #93a2ad;
+  --border: #2b3945;
+  --input: #2c3a45;
+  --secondary: #202e3a;
+  --secondary-foreground: #cbd6df;
+  --accent: #273543;
+  --accent-foreground: #e2e9f0;
+  --primary: #d4e78d;
+  --primary-foreground: #1a2415;
+  --ring: #a6bb76;
+  --destructive: #ef8275;
+  color-scheme: dark;
+}
+:focus-visible {
+  outline-color: #d4e78d;
+}
+.gh-skip {
+  background: #d4e78d;
+  color: #142017;
+}
+.gh-sidebar {
+  width: 220px;
+  background: linear-gradient(180deg, #101821, #0c141c);
+  border-right: 1px solid #26313b;
+  padding: 27px 18px 18px;
+  color: #dce5ea;
+}
+.gh-brand {
+  font-size: 24px;
+  letter-spacing: -1.2px;
+}
+.gh-brand-mark {
+  border-color: #4b5c4a;
+  color: #d4e78d;
+  border-radius: 7px;
+  background: #d4e78d09;
+}
+.gh-brand-dot {
+  color: #d4e78d;
+}
+.gh-organization {
+  border-color: #25313a;
+  margin-top: 19px;
+}
+.gh-org-icon {
+  background: #1b2631;
+  color: #9aabb8;
+  border: 1px solid #303e49;
+  border-radius: 5px;
+}
+.gh-organization strong {
+  font-size: 11px;
+  color: #d7e0e8;
+}
+.gh-organization span:not(.gh-org-icon) {
+  color: #8495a3;
+}
+.gh-organization > svg {
+  color: #9cb17e;
+}
+.gh-nav-label {
+  color: #637482;
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 1.7px;
+}
+.gh-nav-item {
+  color: #92a4b3;
+  font-size: 11px;
+  border-radius: 5px;
+  padding: 12px 11px;
+}
+.gh-nav-item:hover {
+  background: #1a2631;
+}
+.gh-nav-item.is-active {
+  background: #d4e78d12;
+  border: 1px solid #d4e78d28;
+  color: #d4e78d;
+  padding: 11px 10px;
+}
+.gh-nav-item.is-active:before {
+  content: "";
+  position: absolute;
+  left: -19px;
+  top: 10px;
+  bottom: 10px;
+  width: 2px;
+  background: #d4e78d;
+  box-shadow: 0 0 10px #d4e78d50;
+}
+.gh-nav-dot {
+  background: #d4e78d;
+  box-shadow: 0 0 8px #d4e78d55;
+}
+.gh-sidebar-note {
+  border-color: #3a4936;
+  background: linear-gradient(130deg, #d4e78d09, transparent);
+  border-radius: 6px;
+}
+.gh-sidebar-note strong {
+  color: #c9d5c3;
+}
+.gh-sidebar-note p {
+  color: #809281;
+}
+.gh-note-orbit {
+  color: #c0d484;
+}
+.gh-sidebar-note a {
+  color: #bdd184;
+}
+.gh-profile {
+  border-color: #27343f;
+}
+.gh-profile strong {
+  color: #d4dee6;
+}
+.gh-profile div > span {
+  color: #8495a2;
+}
+.gh-avatar {
+  background: #28352d;
+  color: #c2d792;
+  border: 1px solid #41513b;
+  border-radius: 8px;
+}
+.gh-sidebar form button {
+  color: #91a1ad;
+  border-color: #2b3b48;
+}
+.gh-preview-main,
+body:has(.gh-sidebar) > .gh-main {
+  margin-left: 220px;
+}
+body:has(.gh-preview-main) > .gh-main {
+  margin-left: 0;
+}
+.gh-page {
+  padding: 0 30px 30px;
+}
+.gh-topline {
+  height: 60px;
+  color: #748796;
+  border-color: #25313b;
+  font-size: 9px;
+}
+.gh-topline > span:last-child {
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 0.8px;
+  color: #a4b795;
+}
+.gh-topline > span > span {
+  color: #455765;
+}
+.gh-page-heading {
+  margin: 25px 0 24px;
+}
+.gh-page-heading h1 {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -1.4px;
+  color: #e3eaf0;
+}
+.gh-page-heading > div > p:last-child {
+  color: #899ba8;
+  font-size: 11px;
+}
+.gh-eyebrow {
+  font-family: var(--font-geist-mono);
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  color: #a6b77d;
+}
+.gh-primary-link {
+  background: #d4e78d;
+  color: #1a2613;
+  border: 1px solid #d4e78d;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 10px;
+}
+.gh-primary-link:hover {
+  background: #e4f0b6;
+  color: #182110;
+  box-shadow: 0 0 20px #d4e78d15;
+}
+.gh-outline-button {
+  background: #17222c;
+  color: #a6b7c3;
+  border-color: #354653;
+  border-radius: 5px;
+}
+.gh-outline-button:hover {
+  background: #24313d;
+}
+.gh-pill {
+  background: #26362b;
+  color: #c0d59a;
+  border: 1px solid #43563b;
+  font-size: 8px;
+  border-radius: 4px;
+  padding: 5px 7px;
+  letter-spacing: 0.2px;
+}
+.gh-pill[data-state="HasAccess"] {
+  background: #1d3329;
+  color: #a4d3ad;
+  border-color: #345742;
+}
+.gh-pill[data-state="NoAccess"] {
+  background: #352724;
+  color: #e1b09f;
+  border-color: #66473c;
+}
+.gh-pill[data-state="Pending"],
+.gh-pill[data-status="PendingApproval"] {
+  background: #352f1e;
+  color: #e4c780;
+  border-color: #615337;
+}
+.gh-pill[data-state="Unknown"] {
+  background: #26313c;
+  color: #acbdca;
+  border-color: #435564;
+}
+.gh-pill[data-status="Rejected"],
+.gh-pill[data-status="Revoked"] {
+  background: #3b2525;
+  color: #f0afa4;
+  border-color: #65423c;
+}
+.gh-stat-row {
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.gh-stat {
+  background: linear-gradient(120deg, #151f29, #101821);
+  border-color: #293741;
+  border-radius: 6px;
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.gh-stat:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30%;
+  height: 1px;
+  background: linear-gradient(90deg, #d4e78d55, transparent);
+}
+.gh-stat-label {
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 0.9px;
+  color: #8d9eab;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.gh-stat-label > span {
+  font-size: 8px;
+  color: #526575;
+}
+.gh-stat strong {
+  font-family: var(--font-geist-mono);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -1.8px;
+  color: #dce6ed;
+  margin-top: 12px;
+}
+.gh-stat small {
+  font-size: 8px;
+  color: #8395a2;
+}
+.gh-stat-icon {
+  background: #1e2c34;
+  border: 1px solid #32443f;
+  border-radius: 5px;
+  color: #b1c38d;
+}
+.gh-atlas-layout {
+  grid-template-columns: minmax(0, 1fr) 282px;
+  gap: 14px;
+  align-items: start;
+}
+.gh-atlas-panel {
+  border-color: #2c3a45;
+  background: #111a23;
+  border-radius: 7px;
+  box-shadow: 0 20px 80px #0002;
+}
+.gh-atlas-toolbar {
+  background: #141e28;
+  border-bottom: 1px solid #2a3945;
+  padding: 17px 20px;
+}
+.gh-atlas-toolbar label {
+  color: #b9c7d1;
+}
+.gh-atlas-toolbar select {
+  color: #dae4ec;
+  font-size: 12px;
+  font-weight: 500;
+  max-width: 300px;
+}
+.gh-atlas-toolbar small {
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 1px;
+  color: #6f8799;
+  margin-top: 7px;
+}
+.gh-atlas-toolbar small span {
+  margin: 0 8px;
+  color: #415767;
+}
+.gh-segmented {
+  background: #0e171f;
+  border-color: #2a3b48;
+  border-radius: 5px;
+}
+.gh-segmented button {
+  color: #889ba8;
+  font-size: 9px;
+  border-radius: 3px;
+  padding: 7px 9px;
+}
+.gh-segmented button[aria-pressed="true"] {
+  background: #28383d;
+  color: #cddba6;
+  box-shadow: inset 0 0 0 1px #83995733;
+}
+.gh-atlas-canvas {
+  background: radial-gradient(ellipse at 50% 45%, #162430, #0b1119 70%);
+  min-height: 600px;
+  isolation: isolate;
+}
+.gh-webgl-stage {
+  position: relative;
+  width: 100%;
+  height: 600px;
+}
+.gh-webgl-stage canvas {
+  touch-action: none;
+}
+.gh-canvas-meta {
+  top: 22px;
+  left: 22px;
+  z-index: 23;
+  pointer-events: none;
+}
+.gh-canvas-meta h3 select {
+  pointer-events: auto;
+  background: #101a25b3;
+  max-width: 250px;
+  border-radius: 3px;
+  padding: 2px 5px 2px 0;
+  font-size: 17px;
+  letter-spacing: -0.4px;
+  color: #d5e2eb;
+  font-weight: 500;
+}
+.gh-canvas-meta span {
+  font: 7px var(--font-geist-mono);
+  letter-spacing: 1.5px;
+  color: #8a9eaa;
+}
+.gh-canvas-meta .gh-cross-mark {
+  color: #d4e78d;
+  margin-right: 5px;
+  font-size: 13px;
+}
+.gh-canvas-meta p {
+  font: 8px var(--font-geist-mono);
+  color: #667f90;
+  margin-top: 8px;
+}
+.gh-scene-coordinate {
+  position: absolute;
+  right: 22px;
+  top: 25px;
+  z-index: 23;
+  font: 7px/1.9 var(--font-geist-mono);
+  letter-spacing: 1px;
+  text-align: right;
+  color: #6b8294;
+  pointer-events: none;
+}
+.gh-floor-rail {
+  position: absolute;
+  z-index: 24;
+  left: 15px;
+  top: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.gh-floor-rail button {
+  height: 36px;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  background: #101b26c9;
+  border: 1px solid #34465680;
+  border-radius: 4px;
+  color: #768f9f;
+  padding: 0 10px 0 0;
+  backdrop-filter: blur(12px);
+}
+.gh-floor-rail button > span:first-child {
+  font: 9px var(--font-geist-mono);
+  width: 35px;
+  display: grid;
+  place-items: center;
+  align-self: stretch;
+  border-right: 1px solid #334755;
+}
+.gh-floor-rail button > span:nth-child(2) {
+  font-size: 8px;
+}
+.gh-floor-rail button i {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #3f5561;
+  margin-left: 6px;
+}
+.gh-floor-rail button[aria-pressed="true"] {
+  border-color: #b7cb7880;
+  color: #d3e492;
+  background: #253225df;
+  box-shadow: 0 0 25px #bfdc5810;
+}
+.gh-floor-rail button[aria-pressed="true"] i {
+  background: #d4e78d;
+}
+.gh-scene-settings-toggle {
+  position: absolute;
+  top: 90px;
+  right: 18px;
+  z-index: 25;
+}
+.gh-scene-icon {
+  height: 33px;
+  width: 33px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a1b3c0;
+  background: #14202ae0;
+}
+.gh-scene-icon:hover {
+  background: #283b44;
+  color: #d4e78d;
+}
+.gh-scene-icon[aria-pressed="true"] {
+  color: #d4e78d;
+  border-color: #83975d;
+}
+.gh-scene-settings {
+  position: absolute;
+  right: 18px;
+  top: 130px;
+  z-index: 26;
+  width: 233px;
+  padding: 15px;
+  background: #101b26f0;
+  backdrop-filter: blur(18px);
+  border: 1px solid #3c505f;
+  border-radius: 6px;
+  box-shadow: 0 20px 45px #0005;
+}
+.gh-scene-settings header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 1.3px;
+  color: #a2b6c3;
+  margin-bottom: 10px;
+}
+.gh-scene-settings header button {
+  font-size: 19px;
+  line-height: 1;
+}
+.gh-scene-settings > button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 11px 0;
+  font-size: 10px;
+  border-top: 1px solid #2c3b47;
+  color: #a7b9c7;
+}
+.gh-scene-settings > button i {
+  width: 26px;
+  height: 14px;
+  border-radius: 8px;
+  background: #34424d;
+  padding: 2px;
+  transition: background 0.2s;
+}
+.gh-scene-settings > button i:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #83939f;
+  transition: transform 0.2s;
+}
+.gh-scene-settings > button[aria-checked="true"] i {
+  background: #a6bd66;
+}
+.gh-scene-settings > button[aria-checked="true"] i:after {
+  transform: translateX(12px);
+  background: #eef8d2;
+}
+.gh-scene-settings p {
+  font-size: 8px;
+  line-height: 1.8;
+  color: #7f95a4;
+  margin-top: 12px;
+}
+.gh-scene-dock {
+  position: absolute;
+  z-index: 25;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: #111e2be8;
+  border: 1px solid #3c505f;
+  border-radius: 7px;
+  padding: 5px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 10px 35px #0006;
+  white-space: nowrap;
+}
+.gh-scene-view-tabs {
+  display: flex;
+  gap: 3px;
+}
+.gh-scene-view-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border-radius: 3px;
+  padding: 9px 10px;
+  color: #8da4b5;
+  font-size: 9px;
+}
+.gh-scene-view-tabs button[aria-pressed="true"] {
+  background: #d4e78d1d;
+  color: #d4e78d;
+  box-shadow: inset 0 0 0 1px #b9ce744a;
+}
+.gh-dock-divider {
+  height: 22px;
+  width: 1px;
+  background: #384b58;
+  margin: 0 5px;
+}
+.gh-zoom-tools {
+  position: absolute;
+  z-index: 24;
+  bottom: 26px;
+  right: 19px;
+  background: #13212dde;
+  border: 1px solid #354957;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+  box-shadow: 0 8px 20px #0003;
+}
+.gh-zoom-tools button {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  color: #8da7b7;
+}
+.gh-zoom-tools span {
+  font: 7px var(--font-geist-mono);
+  color: #7e97a7;
+  margin: 2px 0;
+}
+.gh-3d-room-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #66808c80;
+  border-radius: 4px;
+  padding: 7px 10px;
+  background: #10212ce8;
+  backdrop-filter: blur(10px);
+  color: #c3d3de;
+  font: 10px var(--font-geist-sans);
+  box-shadow: 0 6px 24px #0006;
+  text-align: left;
+  white-space: nowrap;
+  min-width: 80px;
+  transform: translateY(-4px);
+}
+.gh-3d-room-label.selected {
+  border-color: #d4e78d;
+  background: #263428ed;
+  color: #e6efcb;
+  box-shadow: 0 0 25px #b5ce5c18;
+}
+.gh-3d-room-label small {
+  display: block;
+  font: 7px var(--font-geist-mono);
+  color: #8ca6b5;
+  margin-top: 4px;
+}
+.gh-3d-room-label.selected small {
+  color: #c6d7a2;
+}
+.gh-3d-room-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  box-shadow: 0 0 5px currentColor;
+}
+.gh-gpu-fallback {
+  height: 600px;
+  position: relative;
+  background: radial-gradient(ellipse at center, #1c2c34, #0b1119);
+}
+.gh-gpu-fallback .gh-spatial-svg {
+  height: 100%;
+  filter: brightness(0.75) saturate(0.65);
+}
+.gh-render-notice {
+  position: absolute;
+  left: 22px;
+  bottom: 85px;
+  font: 8px var(--font-geist-mono);
+  color: #9aafbd;
+  background: #101a24d9;
+  padding: 7px 10px;
+  border: 1px solid #354957;
+  border-radius: 3px;
+}
+.gh-map-error {
+  position: absolute;
+  top: 102px;
+  left: 22px;
+  z-index: 25;
+  padding: 8px;
+  color: #edbd86;
+  background: #332b20d9;
+  font-size: 10px;
+}
+.gh-map-error button {
+  text-decoration: underline;
+}
+.gh-atlas-foot {
+  background: #121d27;
+  border-color: #2a3a46;
+  color: #7e95a6;
+  font: 7px var(--font-geist-mono);
+  letter-spacing: 0.6px;
+  padding: 14px 19px;
+}
+.gh-atlas-foot i {
+  width: 3px;
+  height: 3px;
+  background: #4e6877;
+  border-radius: 50%;
+  margin: 0 4px;
+}
+.gh-atlas-sidebar {
+  gap: 12px;
+}
+.gh-panel {
+  background: linear-gradient(140deg, #161f29, #111a23);
+  border: 1px solid #2a3945;
+  border-radius: 6px;
+  padding: 18px;
+}
+.gh-panel-title {
+  margin-bottom: 16px;
+}
+.gh-panel-title > span.gh-panel-kicker {
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 1px;
+  color: #aebdc8;
+}
+.gh-panel-title > span:last-child {
+  font: 7px var(--font-geist-mono);
+  color: #6c8496;
+}
+.gh-panel-title > svg {
+  color: #91a773;
+}
+.gh-room-search input {
+  background: #0e1720;
+  border-color: #2b3c49;
+  border-radius: 4px;
+  font-size: 9px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #c1ced8;
+}
+.gh-room-search input::placeholder {
+  color: #708695;
+}
+.gh-room-search svg {
+  color: #6b8597;
+  top: 12px;
+}
+.gh-room-list {
+  max-height: 220px;
+  gap: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #3d5260 transparent;
+}
+.gh-room-row {
+  border-radius: 4px;
+  padding: 10px 7px;
+  gap: 9px;
+}
+.gh-room-row > span:first-child {
+  background: #1d2c37;
+  border: 1px solid #30424f;
+  border-radius: 4px;
+  color: #92a9b7;
+  width: 27px;
+  height: 29px;
+}
+.gh-room-row strong {
+  color: #b7c8d4;
+  font-size: 10px;
+}
+.gh-room-row small {
+  color: #768d9f;
+  font: 7px var(--font-geist-mono);
+  line-height: 1.6;
+}
+.gh-room-row:hover,
+.gh-room-row[aria-pressed="true"] {
+  background: #d4e78d0b;
+  border-color: #b4c87333;
+}
+.gh-room-row[aria-pressed="true"] > span:first-child {
+  background: #34402b;
+  color: #ccdf98;
+  border-color: #62764c;
+}
+.gh-room-row[aria-pressed="true"] strong {
+  color: #dce8c6;
+}
+.gh-area-detail {
+  animation: gh-inspector-in 0.32s ease-out;
+}
+.gh-area-detail .gh-eyebrow {
+  color: #6f8b9f;
+  font-size: 7px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.gh-area-detail h3 {
+  font-size: 23px;
+  letter-spacing: -0.7px;
+  color: #dee7ee;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.gh-inspector-tags {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.gh-security-tier {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 7px;
+  border: 1px solid #3b4c5a;
+  border-radius: 4px;
+  font-size: 8px;
+  color: #a7b9c7;
+}
+.gh-area-detail dl {
+  margin: 20px 0;
+  border-top: 1px solid #2c3a45;
+  padding-top: 3px;
+}
+.gh-area-detail dl > div {
+  font-size: 9px;
+  line-height: 1.6;
+  margin: 12px 0;
+}
+.gh-area-detail dt {
+  color: #7a91a2;
+}
+.gh-area-detail dd {
+  color: #bbcbd7;
+  max-width: 145px;
+}
+.gh-access-context {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 9px;
+  line-height: 1.7;
+  background: #101b24;
+  border-left: 2px solid #80905d;
+  padding: 10px;
+  color: #9ab0bf;
+  margin: 13px 0;
+}
+.gh-access-context > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #b7cb85;
+}
+.gh-access-context p:first-letter {
+  text-transform: uppercase;
+}
+.gh-focus-room {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #8fa7b9;
+  font-size: 9px;
+  margin-top: 9px;
+  padding: 8px;
+  border-radius: 4px;
+}
+.gh-focus-room:hover {
+  background: #21323f;
+  color: #cbdbeb;
+}
+.gh-focus-room > svg:last-child {
+  margin-left: auto;
+}
+.gh-focus-room > svg:first-child {
+  margin-right: auto;
+}
+.gh-atlas-tip {
+  color: #7b93a5;
+  font-size: 8px;
+  padding: 4px 3px;
+  line-height: 1.9;
+}
+.gh-detail-note {
+  color: #8199aa;
+}
+.gh-model-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+.gh-model-status > .gh-legend {
+  margin: 0;
+}
+.gh-legend span {
+  font: 8px var(--font-geist-mono);
+  color: #8fa4b4;
+}
+.gh-model-status > span {
+  font: 7px var(--font-geist-mono);
+  color: #658195;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.gh-section-heading {
+  margin: 29px 0 17px;
+}
+.gh-section-heading .gh-eyebrow {
+  margin-bottom: 7px;
+  font-size: 7px;
+}
+.gh-section-heading h2 {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.4px;
+  color: #c9d9e5;
+}
+.gh-section-heading a {
+  color: #a4ba7e;
+  font: 8px var(--font-geist-mono);
+}
+.gh-journey {
+  background: #111a24;
+  border-color: #283b49;
+  border-radius: 6px;
+}
+.gh-journey > div {
+  border-color: #283b49;
+  padding: 19px 18px;
+}
+.gh-journey header {
+  color: #a4bc7d;
+}
+.gh-journey header span {
+  color: #536f84;
+  font: 8px var(--font-geist-mono);
+}
+.gh-journey strong {
+  color: #becedb;
+  font-size: 10px;
+}
+.gh-journey p {
+  color: #7c95a8;
+  font-size: 9px;
+}
+.gh-flat-map {
+  min-height: 600px;
+  padding: 100px 25px 70px;
+}
+.gh-flat-map > svg {
+  color: #c7d7e3;
+}
+.gh-flat-map > svg text {
+  paint-order: stroke;
+  stroke: #0c141c;
+  stroke-width: 1.4px;
+}
+.gh-room-label {
+  fill: #c7d6df;
+}
+.gh-preview-banner {
+  background: #202c23;
+  border-bottom: 1px solid #425337;
+  color: #b2c78d;
+  font: 8px var(--font-geist-mono);
+  padding: 9px 20px;
+  letter-spacing: 0.2px;
+}
+.gh-table-wrap {
+  background: #131d27;
+  border-color: #2b3c49;
+  border-radius: 6px;
+}
+.gh-table-wrap th {
+  background: #17232e;
+  color: #91a9b9;
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 1px;
+}
+.gh-table-wrap td {
+  color: #bdcdda;
+  font-size: 11px;
+}
+.gh-table-wrap td:first-child > div {
+  color: #6f8b9f;
+}
+.gh-table-wrap tr:hover td {
+  background: #192a35;
+}
+.gh-table-wrap [data-slot="badge"] {
+  border-color: #445762;
+  background: #1c2c36;
+  color: #a1b6c5;
+}
+.gh-request-summary {
+  color: #809bae;
+  font-size: 9px;
+  line-height: 1.8;
+}
+.gh-approval-card {
+  background: linear-gradient(140deg, #16222e, #111c26);
+  border-color: #2d4352;
+  border-radius: 7px;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.gh-approval-card:hover {
+  border-color: #5b7053;
+  transform: translateY(-2px);
+}
+.gh-approval-top strong {
+  color: #c8d8e4;
+}
+.gh-approval-top small {
+  color: #7b97aa;
+}
+.gh-approval-area h2 {
+  color: #d6e5f0;
+}
+.gh-approval-area p {
+  color: #7f9bb0;
+}
+.gh-approval-reason {
+  background: #0e1b26;
+  border: 1px solid #2a4050;
+  color: #b5c8d5;
+  border-radius: 5px;
+}
+.gh-approval-reason span {
+  font-family: var(--font-geist-mono);
+  color: #7191a7;
+}
+.gh-approval-dates {
+  color: #a1b9ca;
+}
+.gh-approval-path {
+  font-size: 8px;
+  color: #7e9bae;
+  line-height: 1.8;
+}
+.gh-approval-actions {
+  border-color: #2b4253;
+}
+.gh-approval-actions button:last-child {
+  background: #d4e78d;
+  color: #1e2c16;
+}
+.gh-approval-actions button:last-child:hover {
+  background: #e2f0b7;
+}
+.gh-empty {
+  background: #121e29;
+  border-color: #365063;
+  color: #9bb2c2;
+}
+.gh-empty > span {
+  background: #25382c;
+  color: #c2d991;
+  border: 1px solid #496142;
+}
+.gh-empty h2 {
+  color: #d1e0eb;
+}
+.gh-loading {
+  background: linear-gradient(90deg, #12212d, #1a2e3d, #12212d);
+  color: #91adbf;
+  border: 1px solid #2c4659;
+  font: 11px var(--font-geist-mono);
+}
+[data-slot="dialog-content"] {
+  background: #14222e;
+  border: 1px solid #456070;
+  box-shadow: 0 35px 100px #0008;
+  color: #d6e4ef;
+  border-radius: 9px;
+}
+[data-slot="dialog-overlay"] {
+  background: #02070cd9;
+  backdrop-filter: blur(8px);
+}
+[data-slot="dialog-title"] {
+  color: #deebf5;
+}
+[data-slot="dialog-description"] {
+  color: #8da8bc;
+}
+.gh-dialog-context {
+  background: #233429;
+  border: 1px solid #405438;
+  color: #b5c995;
+  font-size: 9px;
+  border-radius: 5px;
+}
+.gh-request-form input,
+.gh-request-form textarea {
+  background: #0e1b26;
+  border-color: #344f62;
+  color: #ccdfec;
+  border-radius: 5px;
+}
+.gh-request-form label {
+  color: #a2bacb;
+}
+.gh-request-form button[type="submit"] {
+  background: #d4e78d;
+  color: #1b2a14;
+  border-radius: 5px;
+}
+.gh-flow li:before {
+  background: #3b5160;
+}
+.gh-flow li > span {
+  background: #1d303d;
+  border-color: #395669;
+  color: #7795aa;
+}
+.gh-flow li.is-current > span {
+  background: #405130;
+  border-color: #91ac62;
+  color: #d9edab;
+  box-shadow: 0 0 0 4px #a9c5610b;
+}
+.gh-flow li.is-done > span {
+  background: #d4e78d;
+  color: #1e2a14;
+}
+.gh-flow strong {
+  color: #bacfdc;
+}
+.gh-flow small {
+  color: #6e8da3;
+}
+.gh-dashboard-hero {
+  background: radial-gradient(ellipse at 90% 40%, #34432d, #15232a 65%);
+  border-color: #3d5341;
+}
+.gh-dashboard-hero h2 {
+  color: #e0ebd6;
+}
+.gh-dashboard-hero p {
+  color: #95ab9f;
+}
+.gh-dashboard-hero .gh-architecture {
+  filter: none;
+  opacity: 0.7;
+}
+.gh-login {
+  background: #0c151f;
+}
+.gh-login-story {
+  background: radial-gradient(ellipse at 60% 65%, #233b3b, #111d28 65%);
+  border-right: 1px solid #334b5c;
+}
+.gh-login-copy h1 {
+  color: #e0e9ef;
+  font-size: 54px;
+}
+.gh-login-copy h1 em {
+  color: #d4e78d;
+}
+.gh-login-copy .gh-eyebrow {
+  color: #b4c88d;
+}
+.gh-login-copy > p:last-child {
+  color: #91abba;
+}
+.gh-login-story-bottom {
+  border-color: #364d5a;
+  color: #7a99ae;
+}
+.gh-login-panel {
+  background: linear-gradient(140deg, #14222e, #0c151f);
+}
+.gh-login-top {
+  color: #6d8ba0;
+}
+.gh-login-symbol {
+  background: #273b2c;
+  border-color: #4c6640;
+  color: #d4e78d;
+  border-radius: 7px;
+  box-shadow: 0 0 40px #b5d56a07;
+}
+.gh-login-form-wrap h2 {
+  color: #e0edf7;
+}
+.gh-login-form-wrap > p:not(.gh-eyebrow) {
+  color: #8ba7ba;
+}
+.gh-login form label {
+  color: #a5bdcc;
+}
+.gh-login form input:not([type="hidden"]) {
+  background: #0d1924;
+  border-color: #3a5367;
+  color: #c8ddeb;
+  border-radius: 5px;
+}
+.gh-login form input::placeholder {
+  color: #627e92;
+}
+.gh-login form button {
+  background: #d4e78d;
+  color: #203015;
+  font-weight: 600;
+  border-radius: 5px;
+}
+.gh-login form button:hover {
+  background: #e6f2bd;
+}
+.gh-login-assurance {
+  color: #7898ad;
+}
+.gh-login-steps {
+  color: #698ba4;
+}
+.gh-login-steps b {
+  border-color: #3a566b;
+}
+.gh-login-steps span:first-child {
+  color: #d4e78d;
+}
+.gh-login-steps span:first-child b {
+  background: #33472b;
+  border-color: #718c4b;
+}
+.gh-login-steps i {
+  background: #345165;
+}
+.gh-login-panel footer {
+  color: #607f95;
+}
+.gh-login-error {
+  color: #f6a697;
+}
+.gh-login-story:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background-image: linear-gradient(#5c82931a 1px, transparent 1px), linear-gradient(90deg, #5c82931a 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+.gh-login-story .gh-architecture {
+  filter: drop-shadow(0 0 18px #b8d78b15);
+}
+.gh-login-symbol {
+  animation: gh-secure-arrival 0.8s ease-out;
+}
+.gh-login-copy {
+  animation: gh-secure-arrival 1s ease-out;
+}
+.gh-architecture .gh-arch-floor:nth-of-type(3) {
+  animation: gh-architectural-float 8s ease-in-out infinite;
+}
+.gh-architecture .gh-arch-floor:nth-of-type(4) {
+  animation: gh-architectural-float 8s 0.5s ease-in-out infinite;
+}
+@keyframes gh-architectural-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes gh-secure-arrival {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes gh-inspector-in {
+  from {
+    opacity: 0.4;
+    transform: translateX(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@media (min-width: 1650px) {
+  .gh-atlas-layout {
+    grid-template-columns: minmax(0, 1fr) 310px;
+  }
+  .gh-webgl-stage,
+  .gh-gpu-fallback,
+  .gh-atlas-canvas {
+    height: 680px;
+    min-height: 680px;
+  }
+  .gh-page {
+    padding: 0 40px 36px;
+  }
+  .gh-atlas-sidebar {
+    gap: 16px;
+  }
+  .gh-room-list {
+    max-height: 270px;
+  }
+  .gh-panel {
+    padding: 22px;
+  }
+}
+@media (max-width: 1200px) {
+  .gh-sidebar {
+    width: 195px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .gh-preview-main,
+  body:has(.gh-sidebar) > .gh-main {
+    margin-left: 195px;
+  }
+  body:has(.gh-preview-main) > .gh-main {
+    margin-left: 0;
+  }
+  .gh-page {
+    padding: 0 22px 25px;
+  }
+  .gh-atlas-layout {
+    grid-template-columns: minmax(0, 1fr) 250px;
+  }
+  .gh-panel {
+    padding: 15px;
+  }
+  .gh-stat {
+    padding: 15px 12px;
+  }
+  .gh-stat-label {
+    font-size: 7px;
+    gap: 7px;
+  }
+  .gh-stat-label > span {
+    display: none;
+  }
+  .gh-scene-dock {
+    gap: 2px;
+    padding: 4px;
+    bottom: 22px;
+  }
+  .gh-scene-view-tabs button {
+    padding: 9px 7px;
+    gap: 5px;
+    font-size: 8px;
+  }
+  .gh-scene-dock > .gh-scene-icon {
+    width: 27px;
+  }
+  .gh-zoom-tools {
+    bottom: 84px;
+    right: 15px;
+  }
+  .gh-floor-rail button > span:nth-child(2),
+  .gh-floor-rail button > i {
+    display: none;
+  }
+  .gh-floor-rail button {
+    padding: 0;
+  }
+  .gh-floor-rail button > span:first-child {
+    border-right: 0;
+  }
+  .gh-scene-coordinate {
+    font-size: 6px;
+    right: 16px;
+  }
+  .gh-canvas-meta {
+    left: 17px;
+  }
+  .gh-atlas-toolbar {
+    padding: 15px;
+  }
+  .gh-atlas-toolbar select {
+    max-width: 215px;
+  }
+  .gh-stat-icon {
+    display: none;
+  }
+  .gh-atlas-foot {
+    font-size: 6px;
+    padding: 13px;
+  }
+  .gh-area-detail h3 {
+    font-size: 21px;
+  }
+  .gh-login-copy h1 {
+    font-size: 45px;
+  }
+}
+@media (max-width: 980px) {
+  .gh-atlas-layout {
+    grid-template-columns: 1fr;
+  }
+  .gh-atlas-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  .gh-room-list {
+    max-height: 360px;
+  }
+  .gh-atlas-tip {
+    grid-column: 1/-1;
+  }
+  .gh-webgl-stage,
+  .gh-gpu-fallback,
+  .gh-atlas-canvas {
+    height: 560px;
+    min-height: 560px;
+  }
+  .gh-scene-coordinate {
+    font-size: 7px;
+  }
+  .gh-floor-rail button > span:nth-child(2),
+  .gh-floor-rail button > i {
+    display: block;
+  }
+  .gh-floor-rail button {
+    padding-right: 8px;
+  }
+  .gh-floor-rail button > span:first-child {
+    border-right: 1px solid #334755;
+  }
+  .gh-login-copy h1 {
+    font-size: 38px;
+  }
+}
+@media (max-width: 680px) {
+  .gh-sidebar {
+    position: relative;
+    width: 100%;
+    padding: 18px 16px 10px;
+  }
+  .gh-sidebar nav {
+    margin-top: 15px;
+  }
+  .gh-nav-item {
+    padding: 9px 10px;
+    font-size: 9px;
+  }
+  .gh-nav-item.is-active {
+    padding: 8px 9px;
+  }
+  .gh-nav-item.is-active:before {
+    display: none;
+  }
+  .gh-preview-main,
+  body:has(.gh-sidebar) > .gh-main {
+    margin-left: 0;
+  }
+  .gh-page {
+    padding: 0 13px 25px;
+  }
+  .gh-topline {
+    height: 40px;
+  }
+  .gh-page-heading {
+    margin: 23px 0 18px;
+  }
+  .gh-page-heading h1 {
+    font-size: 28px;
+  }
+  .gh-page-heading > div > p:last-child {
+    font-size: 10px;
+    max-width: 320px;
+    line-height: 1.8;
+  }
+  .gh-stat-row {
+    gap: 7px;
+  }
+  .gh-stat {
+    padding: 14px;
+  }
+  .gh-stat-label {
+    font-size: 7px;
+    letter-spacing: 0.6px;
+  }
+  .gh-stat strong {
+    font-size: 26px;
+    margin-top: 8px;
+  }
+  .gh-stat small {
+    font-size: 8px;
+  }
+  .gh-atlas-toolbar {
+    padding: 14px;
+    gap: 13px;
+    flex-wrap: wrap;
+  }
+  .gh-atlas-toolbar > div:first-child {
+    width: 100%;
+  }
+  .gh-atlas-toolbar > .gh-segmented {
+    width: 100%;
+    justify-content: center;
+  }
+  .gh-atlas-toolbar > .gh-segmented button {
+    flex: 1;
+    justify-content: center;
+  }
+  .gh-atlas-toolbar select {
+    max-width: 280px;
+    font-size: 12px;
+  }
+  .gh-webgl-stage,
+  .gh-gpu-fallback,
+  .gh-atlas-canvas {
+    height: 510px;
+    min-height: 510px;
+  }
+  .gh-canvas-meta {
+    top: 17px;
+    left: 14px;
+  }
+  .gh-canvas-meta h3 select {
+    font-size: 16px;
+  }
+  .gh-canvas-meta span {
+    font-size: 6px;
+    letter-spacing: 1px;
+  }
+  .gh-canvas-meta p {
+    font-size: 7px;
+    max-width: 235px;
+    line-height: 1.8;
+  }
+  .gh-scene-coordinate {
+    display: none;
+  }
+  .gh-floor-rail {
+    left: 12px;
+    top: 115px;
+    gap: 6px;
+  }
+  .gh-floor-rail button > span:nth-child(2),
+  .gh-floor-rail button > i {
+    display: none;
+  }
+  .gh-floor-rail button {
+    height: 30px;
+    padding: 0;
+  }
+  .gh-floor-rail button > span:first-child {
+    width: 29px;
+    border: 0;
+    font-size: 8px;
+  }
+  .gh-scene-settings-toggle {
+    right: 12px;
+    top: 19px;
+  }
+  .gh-scene-settings {
+    right: 12px;
+    top: 61px;
+    width: 222px;
+  }
+  .gh-scene-dock {
+    bottom: 18px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+    justify-content: space-between;
+    gap: 0;
+  }
+  .gh-scene-view-tabs {
+    gap: 1px;
+  }
+  .gh-scene-view-tabs button {
+    font-size: 8px;
+    gap: 4px;
+    padding: 9px 6px;
+  }
+  .gh-scene-view-tabs button > svg {
+    width: 11px;
+  }
+  .gh-dock-divider {
+    margin: 0 3px;
+  }
+  .gh-scene-dock > .gh-scene-icon {
+    width: 25px;
+  }
+  .gh-zoom-tools {
+    right: 12px;
+    bottom: 83px;
+    width: 28px;
+  }
+  .gh-zoom-tools button {
+    width: 26px;
+    height: 26px;
+  }
+  .gh-atlas-foot {
+    line-height: 1.8;
+    gap: 6px;
+  }
+  .gh-atlas-foot > span:last-child {
+    font-size: 6px;
+  }
+  .gh-atlas-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .gh-panel {
+    padding: 19px;
+  }
+  .gh-room-list {
+    max-height: 235px;
+  }
+  .gh-area-detail h3 {
+    font-size: 24px;
+  }
+  .gh-area-detail dl > div {
+    font-size: 10px;
+  }
+  .gh-model-status {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .gh-legend {
+    gap: 14px;
+  }
+  .gh-model-status > span {
+    font-size: 7px;
+  }
+  .gh-flat-map {
+    min-height: 510px;
+    padding: 100px 12px 65px;
+  }
+  .gh-section-heading h2 {
+    font-size: 16px;
+  }
+  .gh-section-heading a {
+    font-size: 7px;
+  }
+  .gh-journey > div {
+    padding: 17px 14px;
+  }
+  .gh-journey strong {
+    font-size: 10px;
+  }
+  .gh-journey p {
+    font-size: 8px;
+  }
+  .gh-preview-banner {
+    font-size: 7px;
+    padding: 9px 13px;
+    line-height: 1.7;
+  }
+  .gh-login-copy h1 {
+    font-size: 32px;
+  }
+  .gh-login-story {
+    border-right: 0;
+    border-bottom: 1px solid #3a5362;
+  }
+  .gh-login-story:before {
+    opacity: 0.2;
+  }
+  .gh-render-notice {
+    left: 13px;
+    bottom: 73px;
+    font-size: 7px;
+    max-width: 240px;
+  }
+  .gh-approval-card {
+    padding: 20px;
+  }
+  .gh-approval-top {
+    flex-wrap: wrap;
+  }
+  .gh-approval-top > .gh-pill {
+    margin-left: 44px;
+    font-size: 7px;
+  }
+  .gh-approval-path {
+    font-size: 8px;
+  }
+  .gh-focus-room {
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gh-area-detail,
+  .gh-login-symbol,
+  .gh-login-copy,
+  .gh-architecture .gh-arch-floor {
+    animation: none !important;
+  }
+  .gh-approval-card:hover {
+    transform: none;
+  }
+}
+
+/* Maintain readable text at native display scale; compact technical labels remain secondary. */
+.gh-nav-item {
+  font-size: 13px;
+}
+.gh-organization strong,
+.gh-profile strong {
+  font-size: 12px;
+}
+.gh-nav-label,
+.gh-topline,
+.gh-topline > span:last-child,
+.gh-eyebrow,
+.gh-stat-label,
+.gh-stat-label > span,
+.gh-stat small,
+.gh-atlas-toolbar small,
+.gh-canvas-meta span,
+.gh-canvas-meta p,
+.gh-scene-coordinate,
+.gh-panel-title > span.gh-panel-kicker,
+.gh-panel-title > span:last-child,
+.gh-area-detail .gh-eyebrow,
+.gh-atlas-foot,
+.gh-render-notice,
+.gh-model-status > span {
+  font-size: 10px;
+}
+.gh-page-heading > div > p:last-child {
+  font-size: 13px;
+}
+.gh-stat strong {
+  font-size: 30px;
+}
+.gh-primary-link,
+.gh-outline-button {
+  font-size: 12px;
+}
+.gh-pill,
+.gh-security-tier {
+  font-size: 10px;
+}
+.gh-segmented button,
+.gh-scene-view-tabs button,
+.gh-scene-settings > button,
+.gh-room-search input,
+.gh-room-row strong,
+.gh-area-detail dl > div,
+.gh-access-context,
+.gh-focus-room,
+.gh-table-wrap td,
+.gh-request-summary {
+  font-size: 12px;
+}
+.gh-floor-rail button > span:nth-child(2),
+.gh-room-row small,
+.gh-scene-settings header,
+.gh-scene-settings p,
+.gh-atlas-tip,
+.gh-approval-path,
+.gh-flow small,
+.gh-preview-banner {
+  font-size: 10px;
+}
+.gh-3d-room-label {
+  font-size: 12px;
+}
+.gh-3d-room-label small,
+.gh-table-wrap th {
+  font-size: 10px;
+}
+.gh-scene-settings {
+  width: 250px;
+}
+.gh-scene-view-tabs button {
+  padding: 9px 8px;
+}
+.gh-gpu-fallback .gh-spatial-svg {
+  filter: none;
+}
+@media (max-width: 1200px) {
+  .gh-scene-view-tabs button {
+    font-size: 10px;
+  }
+  .gh-floor-rail button > span:first-child {
+    font-size: 11px;
+  }
+  .gh-atlas-foot {
+    font-size: 9px;
+  }
+}
+@media (max-width: 680px) {
+  .gh-scene-view-tabs button {
+    font-size: 10px;
+    padding: 9px 5px;
+  }
+  .gh-scene-view-tabs button > svg {
+    display: none;
+  }
+  .gh-scene-dock > .gh-scene-icon {
+    width: 26px;
+  }
+  .gh-dock-divider {
+    margin: 0 2px;
+  }
+  .gh-canvas-meta p {
+    font-size: 9px;
+    max-width: 230px;
+  }
+  .gh-canvas-meta span,
+  .gh-atlas-foot > span:last-child {
+    font-size: 9px;
+  }
+  .gh-render-notice {
+    font-size: 9px;
+    max-width: 230px;
+  }
+  .gh-page-heading > div > p:last-child {
+    font-size: 12px;
+  }
+  .gh-journey strong {
+    font-size: 12px;
+  }
+  .gh-journey p {
+    font-size: 11px;
+  }
+  .gh-stat-label {
+    font-size: 9px;
+  }
+  .gh-preview-banner {
+    font-size: 9px;
+  }
+}
+
+/* Task-first navigation, request review and compact layouts. */
+.gh-personal-workspace {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
+  padding: 20px 22px;
+  border: 1px solid #33453b;
+  border-radius: 7px;
+  background: linear-gradient(110deg, #1c2c26, #111c26);
+}
+.gh-personal-workspace .gh-eyebrow {
+  margin-bottom: 7px;
+}
+.gh-personal-workspace strong {
+  font-size: 17px;
+  font-weight: 500;
+  color: #dce8d3;
+}
+.gh-personal-workspace p:last-child {
+  font-size: 12px;
+  color: #9ab0ad;
+  margin-top: 6px;
+}
+.gh-personal-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.gh-personal-actions a {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #d8e7bc;
+  padding: 12px 15px;
+  background: #10201980;
+  border: 1px solid #42543e;
+  border-radius: 5px;
+}
+.gh-personal-actions a span {
+  font-size: 11px;
+  color: #a8b8a5;
+}
+.gh-personal-actions a:hover {
+  background: #33432e;
+}
+.gh-building-search {
+  position: relative;
+  margin-bottom: 18px;
+  z-index: 27;
+}
+.gh-building-search > label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  background: #15232d;
+  border: 1px solid #425666;
+  border-radius: 6px;
+  color: #bdd1b1;
+}
+.gh-building-search input {
+  background: transparent;
+  outline: none;
+  min-width: 0;
+  width: 100%;
+  height: 48px;
+  font-size: 14px;
+  color: #d8e4ec;
+  padding-right: 34px;
+}
+.gh-building-search:focus-within > label {
+  border-color: #b8d382;
+  box-shadow: 0 0 0 2px #b8d38216;
+}
+.gh-building-search input::placeholder {
+  color: #91a6b5;
+}
+.gh-search-clear {
+  position: absolute;
+  right: 7px;
+  top: 5px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  color: #c3d3de;
+}
+.gh-search-results {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  right: 0;
+  border: 1px solid #50616d;
+  border-radius: 7px;
+  background: #14222e;
+  box-shadow: 0 18px 50px #0008;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.gh-search-results p {
+  padding: 12px 16px;
+  color: #a1b6c6;
+  font-size: 12px;
+}
+.gh-search-results li {
+  border-top: 1px solid #2d414f;
+}
+.gh-search-results li button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 18px;
+  text-align: left;
+  color: #d3e3ef;
+  min-height: 58px;
+}
+.gh-search-results li button:hover,
+.gh-search-results li button:focus-visible {
+  background: #2c3d32;
+}
+.gh-search-results strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+}
+.gh-search-results small {
+  display: block;
+  font-size: 11px;
+  color: #9db3c3;
+  margin-top: 5px;
+}
+.gh-search-results li button > span:last-child {
+  margin-left: auto;
+  color: #b7ce89;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.gh-floor-picker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  font-size: 12px;
+  color: #99afbd;
+  border-bottom: 1px solid #2a3d4c;
+  background: #111e29;
+}
+.gh-floor-picker select {
+  background: #22313d;
+  border: 1px solid #405667;
+  color: #d5e3ed;
+  border-radius: 4px;
+  min-height: 38px;
+  padding: 6px 10px;
+  max-width: 240px;
+}
+.gh-floor-picker > span {
+  margin-left: auto;
+  font-size: 11px;
+  max-width: 230px;
+  line-height: 1.5;
+  color: #8da6b8;
+}
+.gh-canvas-meta h3 {
+  font-size: 18px;
+  color: #d5e3ee;
+  margin-top: 6px;
+}
+.gh-atlas-layout.is-list {
+  grid-template-columns: minmax(0, 1fr) 310px;
+}
+.gh-atlas-panel > .gh-space-browser {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  padding: 22px;
+}
+.gh-atlas-panel > .gh-space-browser .gh-room-list {
+  max-height: 570px;
+}
+.gh-atlas-panel > .gh-space-browser .gh-room-row {
+  padding: 14px;
+  min-height: 66px;
+}
+.gh-atlas-panel > .gh-space-browser .gh-room-row strong {
+  font-size: 15px;
+}
+.gh-atlas-panel > .gh-space-browser .gh-room-row small {
+  font-size: 12px;
+}
+.gh-room-filters {
+  margin-bottom: 12px;
+  width: 100%;
+  display: flex;
+}
+.gh-room-filters button {
+  flex: 1;
+  justify-content: center;
+  min-height: 36px;
+}
+.gh-room-action-help {
+  font-size: 12px;
+  line-height: 1.7;
+  color: #adbfcd;
+  margin: 14px 0;
+}
+.gh-area-detail {
+  scroll-margin-top: 20px;
+}
+.gh-area-detail:focus {
+  outline: 2px solid #b4c785;
+  outline-offset: 3px;
+}
+.gh-area-detail .gh-primary-link {
+  width: 100%;
+}
+.gh-filter-notice {
+  font-size: 13px;
+  padding: 13px 16px;
+  background: #27382b;
+  color: #d0dfa9;
+  border: 1px solid #4e6242;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.gh-filter-notice a {
+  text-decoration: underline;
+}
+[data-slot="dialog-content"] {
+  max-height: 90dvh;
+  overflow-y: auto;
+  width: min(620px, calc(100vw - 32px));
+  max-width: 620px;
+}
+.gh-wizard-steps {
+  display: flex;
+  gap: 8px;
+  margin: 4px 0 14px;
+  padding: 0;
+  list-style: none;
+}
+.gh-wizard-steps li {
+  flex: 1;
+}
+.gh-wizard-steps button {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  min-height: 42px;
+  width: 100%;
+  font-size: 12px;
+  text-align: left;
+  padding: 7px;
+  border-bottom: 2px solid #334c5c;
+  color: #8ca7ba;
+}
+.gh-wizard-steps span {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border: 1px solid #486175;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+}
+.gh-wizard-steps [aria-current="step"] button {
+  color: #d8e99c;
+  border-color: #b9cf82;
+}
+.gh-wizard-steps [aria-current="step"] span {
+  background: #bacf80;
+  color: #182310;
+  border-color: #bacf80;
+}
+.gh-wizard-heading {
+  font-size: 20px;
+  color: #e3ecf3;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+.gh-wizard-heading:focus {
+  outline: none;
+}
+.gh-review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin: 8px 0 16px;
+  padding: 0;
+}
+.gh-review-grid dt,
+.gh-approval-window dt {
+  font-size: 11px;
+  color: #90a8ba;
+  margin-bottom: 5px;
+}
+.gh-review-grid dd {
+  font-size: 14px;
+  color: #d1e0ea;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.gh-review-grid small {
+  display: block;
+  font-size: 12px;
+  color: #a0b5c5;
+}
+.gh-review-grid > div:last-child:nth-child(odd) {
+  grid-column: 1/-1;
+}
+.gh-policy-note,
+.gh-decision-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #b4c9ab;
+  background: #233428;
+  padding: 12px 14px;
+  border: 1px solid #455b3d;
+  border-radius: 5px;
+}
+.gh-policy-note > svg,
+.gh-decision-note > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.gh-decision-note {
+  margin-top: 20px;
+}
+.gh-duration-presets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.gh-duration-presets button {
+  border: 1px solid #4a6255;
+  background: #21352a;
+  border-radius: 5px;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #c6d8a5;
+  min-height: 40px;
+}
+.gh-duration-presets button:hover {
+  background: #354a31;
+}
+.gh-request-wizard .gh-date-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 13px;
+}
+.gh-request-wizard input {
+  min-height: 42px;
+  padding: 8px 10px;
+  width: 100%;
+  min-width: 0;
+}
+.gh-request-wizard textarea {
+  padding: 12px;
+  resize: vertical;
+  min-height: 95px;
+}
+.gh-field-help {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #9cb4c5;
+}
+.gh-validation-note {
+  font-size: 12px;
+  color: #e6c78e;
+}
+.gh-wizard-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 15px;
+  border-top: 1px solid #355063;
+  margin-top: 8px;
+}
+.gh-wizard-actions button {
+  min-height: 44px;
+  min-width: 110px;
+}
+.gh-access-record {
+  padding: 14px;
+  background: #10202b;
+  border: 1px solid #385367;
+  border-radius: 5px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.gh-access-record strong {
+  color: #d6e69e;
+}
+.gh-access-record p {
+  color: #a9bfce;
+}
+.gh-approval-filter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.gh-approval-filter > span {
+  font-size: 11px;
+  color: #99b1c2;
+}
+.gh-approval-window {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 18px 0;
+}
+.gh-approval-window dd {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #ccdeea;
+}
+.gh-approval-path {
+  font-size: 12px;
+}
+.gh-approval-actions button {
+  min-height: 42px;
+}
+.gh-approval-card .gh-policy-note {
+  font-size: 11px;
+  margin-bottom: 12px;
+}
+.gh-approval-filter button {
+  min-height: 38px;
+}
+@media (max-width: 1100px) {
+  .gh-personal-workspace {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .gh-personal-actions a {
+    flex: 1;
+  }
+  .gh-atlas-layout.is-list {
+    grid-template-columns: 1fr;
+  }
+  .gh-atlas-layout.is-list .gh-atlas-sidebar {
+    display: block;
+  }
+  .gh-atlas-layout.is-list .gh-atlas-tip {
+    margin-top: 15px;
+  }
+  .gh-floor-picker > span {
+    display: none;
+  }
+  .gh-atlas-toolbar {
+    flex-wrap: wrap;
+  }
+  .gh-atlas-toolbar .gh-segmented {
+    flex-wrap: wrap;
+  }
+  .gh-atlas-toolbar .gh-segmented button {
+    min-height: 36px;
+  }
+}
+@media (max-width: 680px) {
+  .gh-personal-workspace {
+    padding: 17px;
+  }
+  .gh-personal-workspace strong {
+    font-size: 16px;
+  }
+  .gh-personal-actions {
+    gap: 7px;
+  }
+  .gh-personal-actions a {
+    min-width: 120px;
+    padding: 11px;
+    font-size: 12px;
+    min-height: 60px;
+  }
+  .gh-building-search input {
+    font-size: 14px;
+    min-height: 48px;
+  }
+  .gh-search-results li button > span:last-child {
+    display: none;
+  }
+  .gh-search-results {
+    max-height: 55dvh;
+  }
+  .gh-floor-picker {
+    padding: 12px 14px;
+  }
+  .gh-floor-picker select {
+    flex: 1;
+    max-width: none;
+    min-height: 44px;
+  }
+  .gh-stat-row {
+    display: none;
+  }
+  .gh-atlas-panel > .gh-space-browser {
+    padding: 16px;
+  }
+  .gh-atlas-panel > .gh-space-browser .gh-room-list {
+    max-height: 350px;
+  }
+  .gh-atlas-panel > .gh-space-browser .gh-room-row {
+    padding: 13px 8px;
+  }
+  .gh-atlas-panel > .gh-space-browser .gh-room-row strong {
+    font-size: 14px;
+  }
+  .gh-room-row {
+    min-height: 48px;
+  }
+  .gh-room-search input {
+    min-height: 44px;
+    font-size: 13px;
+  }
+  .gh-atlas-sidebar {
+    margin-top: 5px;
+  }
+  .gh-primary-link {
+    min-height: 44px;
+  }
+  .gh-atlas-layout.is-list .gh-atlas-sidebar {
+    margin-top: 0;
+  }
+  .gh-model-status > span {
+    display: none;
+  }
+  .gh-journey {
+    display: none;
+  }
+  .gh-section-heading {
+    margin-top: 18px;
+  }
+  .gh-section-heading a {
+    font-size: 11px;
+  }
+  .gh-review-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .gh-wizard-steps {
+    gap: 3px;
+  }
+  .gh-wizard-steps button {
+    font-size: 11px;
+    gap: 5px;
+    padding: 6px 2px;
+  }
+  .gh-wizard-steps span {
+    width: 20px;
+    height: 20px;
+  }
+  .gh-approval-filter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .gh-approval-filter .gh-segmented {
+    display: flex;
+  }
+  .gh-approval-filter button {
+    flex: 1;
+    justify-content: center;
+    font-size: 11px;
+  }
+  .gh-approval-window {
+    grid-template-columns: 1fr;
+  }
+  .gh-table-wrap table,
+  .gh-table-wrap tbody {
+    display: block;
+  }
+  .gh-table-wrap thead {
+    display: none;
+  }
+  .gh-table-wrap tr {
+    display: block;
+    padding: 16px 18px;
+    border-top: 1px solid #365062;
+  }
+  .gh-table-wrap td {
+    display: block;
+    padding: 8px 0;
+    border: 0;
+    font-size: 13px;
+    white-space: normal;
+  }
+  .gh-table-wrap td[data-label]:before {
+    content: attr(data-label);
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #8ca8bb;
+    margin-bottom: 7px;
+  }
+  .gh-table-wrap td button {
+    width: 100%;
+    min-height: 44px;
+  }
+  .gh-table-wrap td:first-child {
+    font-size: 16px;
+  }
+  .gh-table-wrap {
+    overflow: visible;
+  }
+  .gh-request-summary {
+    flex-wrap: wrap;
+    line-height: 1.8;
+  }
+  .gh-request-summary > a {
+    margin-left: 0;
+    width: 100%;
+    min-height: 44px;
+  }
+  .gh-wizard-actions {
+    position: sticky;
+    bottom: -24px;
+    background: #14222e;
+    padding-bottom: 12px;
+  }
+  .gh-filterbar .gh-pill {
+    white-space: normal;
+    line-height: 1.6;
+  }
+}
+.gh-mobile-account {
+  display: none;
+}
+@media (max-width: 680px) {
+  .gh-mobile-account {
+    display: block;
+    font-size: 12px;
+    color: #b9cdbb;
+    margin-top: 12px;
+    border: 1px solid #3d5146;
+    border-radius: 5px;
+    padding: 10px 12px;
+  }
+  .gh-mobile-account summary {
+    cursor: pointer;
+    min-height: 24px;
+  }
+  .gh-mobile-account p {
+    font-size: 11px;
+    color: #a0b7a2;
+    margin-top: 12px;
+  }
+  .gh-mobile-account a {
+    display: block;
+    padding: 12px 0;
+    color: #d0e1ad;
+  }
+  .gh-mobile-account form button {
+    min-height: 44px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 680px) {
+  .gh-personal-workspace > div:first-child {
+    display: none;
+  }
+  .gh-table-wrap thead {
+    display: block;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

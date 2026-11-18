@@ -1,0 +1,1 @@
+# conventions.md §7: src/**/*.cs files over 400 lines (repo-relative paths). Only shrinks.

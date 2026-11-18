@@ -1,0 +1,14 @@
+**/bin/
+**/obj/
+**/node_modules/
+**/.next/
+**/test-results/
+**/playwright-report/
+.git/
+.claude/
+tests/e2e/
+docs/
+deploy/.env
+deploy/data/
+deploy/lab/.env
+deploy/lab/employees.csv

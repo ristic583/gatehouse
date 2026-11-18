@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsTestProject>true</IsTestProject>
+    <OutputType>Exe</OutputType>
+    <IsTestingPlatformApplication>false</IsTestingPlatformApplication>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyMetadata Include="RepoRoot" Value="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)../..'))" />
+    <None Include="Architecture/Allowlists/*.txt" CopyToOutputDirectory="PreserveNewest" LinkBase="Architecture/Allowlists" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Gatehouse.Agent\Gatehouse.Agent.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Adapters.CloudPacs\Gatehouse.Adapters.CloudPacs.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Domain\Gatehouse.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Application\Gatehouse.Application.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Api\Gatehouse.Api.csproj" />
+    <ProjectReference Include="..\..\src\Gatehouse.Cli\Gatehouse.Cli.csproj" />    <ProjectReference Include="..\..\src\Gatehouse.Connector.Contracts\Gatehouse.Connector.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

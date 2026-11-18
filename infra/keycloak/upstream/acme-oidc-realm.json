@@ -1,0 +1,31 @@
+{
+  "realm": "acme-oidc",
+  "enabled": true,
+  "displayName": "Acme Corp (new customer's upstream OIDC IdP, tests only)",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "sslRequired": "none",
+  "accessTokenLifespan": 300,
+  "clients": [
+    {
+      "clientId": "gatehouse-broker-acme",
+      "name": "Gatehouse broker (acme)",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "${GH_ACME_BROKER_CLIENT_SECRET}",
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "implicitFlowEnabled": false,
+      "redirectUris": [
+        "http://localhost:8080/realms/gatehouse/broker/*"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:8080/realms/gatehouse/*"
+      }
+    }
+  ]
+}
